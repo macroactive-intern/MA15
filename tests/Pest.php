@@ -41,7 +41,7 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function createUser(array $attributes = []): \App\Models\User
 {
-    // ..
+    return \App\Models\User::factory()->create($attributes);
 }
