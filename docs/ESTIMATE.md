@@ -286,3 +286,47 @@ Step 12
                                                                                                     11 hrs
 
 ---------------------------------------------------------------------------------------------------------------- 
+
+AI Estimate
+Step	Task	Estimate
+1	Project setup	15 mins
+2	Documentation	90 mins
+3	Finish project setup	25 mins
+4	Feature tests	150 mins
+5	Database and model setup	30 mins
+6	Authentication setup	20 mins
+7	Macro log endpoints	45 mins
+8	Daily summary endpoint	45 mins
+9	Weekly summary endpoint	45 mins
+10	Cache service / helper	45 mins
+11	Cache invalidation	45 mins
+12	Routes	15 mins
+13	Run tests	20 mins
+14	Fix failing tests	45 mins
+15	Manual test	40 mins
+16	BEFORE-AFTER.md	25 mins
+AI Total
+
+740 mins
+
+12 hrs 20 mins
+
+Rounded estimate: 12.5 hrs
+
+Reconciliation
+
+My manual estimate is 11 hours.
+
+The AI estimate is slightly higher at 12 hours 20 minutes.
+
+The difference is mainly because this task has more testing risk than a normal CRUD API. The cache behavior needs to be proven, not just implemented. The feature tests need to confirm that:
+
+a second identical daily summary request uses the cached value
+the aggregation query does not run again while cached
+the cache is invalidated after a macro log is created
+the cache is invalidated after a macro log is updated
+the cache is invalidated after a macro log is deleted
+changing logged_at clears both the old date cache and the new date cache
+user/date cache keys are properly scoped
+
+The implementation itself is not too large, but the query-count cache tests and invalidation edge cases may take extra time to get right.
